@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Rust + Wasm 加法器</title>
+</head>
+<body>
+    <h1>我的第一個 Rust Wasm 模組</h1>
+    <div id="result">計算中...</div>
+
+    <script type="module">
+        // 1. 引入 wasm-pack 幫你寫好的 JS 膠水程式碼
+        import init, { add_easy } from './pkg/hello_world.js';
+
+        async function run() {
+            // 2. 初始化 Wasm 模組（下載並編譯 .wasm 檔案）
+            await init();
+
+            // 3. 呼叫你寫的 Rust 函式！
+            const sum = add_easy(520, 1314);
+            
+            document.getElementById('result').innerText = 
+                `520 + 1314 的結果是：${sum} (來自 Rust)`;
+            console.log("計算成功！");
+        }
+
+        run();
+    </script>
+</body>
+</html>
